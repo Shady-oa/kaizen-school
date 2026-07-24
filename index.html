@@ -87,6 +87,7 @@
     white-space:nowrap;
   }
   .cta-btn:hover{background:var(--navy-soft);}
+  .nav-close{display:none;}
   .menu-toggle{display:none; flex-direction:column; gap:5px; background:none; border:none; padding:6px;}
   .menu-toggle span{width:22px; height:2px; background:var(--ink); display:block;}
 
@@ -499,14 +500,19 @@
   }
   @media(max-width: 720px){
     nav.primary-nav{
-      position:fixed; top:65px; left:0; right:0; bottom:0; background:#fff;
-      transform:translateX(100%); transition:transform 0.3s ease; padding:30px 32px; z-index:90;
-      box-shadow:-6px 0 40px rgba(0,0,0,0.1);
+      position:fixed; top:65px; left:0; right:0; bottom:0;
+      background:#fff;
+      transform:translateX(100%); transition:transform 0.3s ease;
+      padding:20px 32px;
+      z-index:1000;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
     }
     nav.primary-nav.open{transform:translateX(0);}
     nav.primary-nav ul{flex-direction:column; gap:0; width:100%;}
     nav.primary-nav ul li{width:100%;}
-    nav.primary-nav ul li a{display:block; width:100%; font-size:18px; padding:14px 0; border-bottom:1px solid var(--line);}
+    nav.primary-nav ul li a{display:block; width:100%; font-size:16px; padding:14px 0; border-bottom:1px solid #E5E7EB; color:#1A1A1A; background:#fff;}
+    .nav-close{position:absolute; top:18px; right:20px; width:36px; height:36px; background:var(--bg); border:none; border-radius:50%; font-size:16px; color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s, transform 0.2s;}
+    .nav-close:hover{background:#e0e2e8; transform:rotate(90deg);}
     .menu-toggle{display:flex;}
     .gallery-grid{grid-template-columns:repeat(2,1fr);}
     .card-grid-3, .team-grid, .svc-grid, .card-grid-2{grid-template-columns:1fr;}
@@ -540,6 +546,7 @@
       <span class="logo-text" style="font-family:'Fraunces',serif;font-size:20px;font-weight:500;">Kaizen Schools</span>
     </a>
     <nav class="primary-nav" id="primaryNav">
+      <button class="nav-close" id="navClose" aria-label="Close menu">✕</button>
       <ul>
         <li><a href="#home" data-nav="home">Home</a></li>
         <li><a href="#services" data-nav="services">Programs</a></li>
@@ -1145,6 +1152,8 @@
     });
     window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
     document.getElementById('primaryNav').classList.remove('open');
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   }
 
   function routeFromHash(){
@@ -1156,8 +1165,18 @@
   window.addEventListener('hashchange', routeFromHash);
   routeFromHash();
 
+  document.getElementById('navClose').addEventListener('click', function(){
+    document.getElementById('primaryNav').classList.remove('open');
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+  });
+
   document.getElementById('menuToggle').addEventListener('click', function(){
-    document.getElementById('primaryNav').classList.toggle('open');
+    var nav = document.getElementById('primaryNav');
+    nav.classList.toggle('open');
+    var isOpen = nav.classList.contains('open');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    document.documentElement.style.overflow = isOpen ? 'hidden' : '';
   });
 })();
 </script>
