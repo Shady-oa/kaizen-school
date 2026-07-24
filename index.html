@@ -504,8 +504,9 @@
       box-shadow:-6px 0 40px rgba(0,0,0,0.1);
     }
     nav.primary-nav.open{transform:translateX(0);}
-    nav.primary-nav ul{flex-direction:column; gap:22px;}
-    nav.primary-nav a{font-size:18px;}
+    nav.primary-nav ul{flex-direction:column; gap:0; width:100%;}
+    nav.primary-nav ul li{width:100%;}
+    nav.primary-nav ul li a{display:block; width:100%; font-size:18px; padding:14px 0; border-bottom:1px solid var(--line);}
     .menu-toggle{display:flex;}
     .gallery-grid{grid-template-columns:repeat(2,1fr);}
     .card-grid-3, .team-grid, .svc-grid, .card-grid-2{grid-template-columns:1fr;}
@@ -540,6 +541,7 @@
     </a>
     <nav class="primary-nav" id="primaryNav">
       <ul>
+        <li><a href="#home" data-nav="home">Home</a></li>
         <li><a href="#services" data-nav="services">Programs</a></li>
         <li><a href="#case-studies" data-nav="case-studies">Campuses</a></li>
         <li><a href="#about" data-nav="about">About</a></li>
